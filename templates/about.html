@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Business Assistant AI</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <div class="about-container">
+        <div class="about-description">
+            <h1>About Business Assistant AI</h1>
+            <p>Our Business Assistant AI helps entrepreneurs and businesses gain actionable insights and suggestions for their ideas. Powered by advanced AI models, it provides detailed business analysis and growth strategies.</p>
+        </div>
+
+        <div class="team-section">
+            <h2>Meet Our Team</h2>
+            <div class="team-members">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/dog.jpg') }}" alt="Team Member 1">
+                    <div class="team-info">
+                        <h3>John Doe</h3>
+                        <p>DPT: CS</p>
+                        <p>Phone: +123456789</p>
+                        <p>Email: john@example.com</p>
+                    </div>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/dog.jpg') }}" alt="Team Member 1">
+                    <div class="team-info">
+                        <h3>Jane Smith</h3>
+                        <p>DPT: CS</p>
+                        <p>Phone: +987654321</p>
+                        <p>Email: jane@example.com</p>
+                    </div>
+                </div>
+                <!-- Add more team members as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Optional: Add hover effect for the team info
+        const teamMembers = document.querySelectorAll('.team-member');
+        teamMembers.forEach(member => {
+            member.addEventListener('mouseenter', () => {
+                const info = member.querySelector('.team-info');
+                info.style.display = 'block';
+            });
+            member.addEventListener('mouseleave', () => {
+                const info = member.querySelector('.team-info');
+                info.style.display = 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>

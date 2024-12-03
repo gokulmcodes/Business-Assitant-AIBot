@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Analysis Result</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content (Removed result container) -->
+    <div class="full-page">
+        <div class="header">
+            <h1>Business Analysis for: "{{ query }}"</h1>
+        </div>
+
+        <div class="response-box">
+            <h2>Analysis Result:</h2>
+            <p>{{ response }}</p>
+        </div>
+
+        <a href="/" class="submit-button">Go Back</a>
+    </div>
+</body>
+</html>

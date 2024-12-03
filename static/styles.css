@@ -1,0 +1,134 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+    background-color: #222; /* Dark background for professional look */
+    color: #ffffff; /* Light text color for readability */
+    height: 120vh;
+    display: flex;
+    justify-content: center; /* Horizontally center the container */
+    align-items: center; /* Vertically center the container */
+    flex-direction: column;
+}
+
+/* Navigation Menu */
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.navbar ul li {
+    margin: 0;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff; /* White font color for links */
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Remove hover effects and animations */
+.navbar ul li a:hover {
+    color: inherit; /* No hover effect */
+}
+
+/* Main Content (Remove result container) */
+.full-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    text-align: center;
+    padding: 20px;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.response-box {
+    background-color: #434242;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Home Container */
+.home-container {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Main Title */
+.home-container h1 {
+    color: #fff;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.home-container p {
+    color: #ddd;
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Styled Button */
+.home-button {
+    background-color: #ff8a00; /* Orange color */
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(255, 138, 0, 0.6);
+}
