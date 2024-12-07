@@ -4,31 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Assistant AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background: url('../static/index.jpg') no-repeat center center fixed; background-size: cover; color: #fff; margin: 0; padding: 0;">
     <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/index">Home</a></li>
             <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/home">Logout</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="header">
-            <h1>Business Assistant AI</h1>
-            <p>Get actionable insights for your business ideas</p>
-        </div>
+    <!-- Header Section -->
+    <header class="hero-section">
+        <h1 class="hero-title">Business Assistant AI</h1>
+        <p class="hero-description">Empowering you with actionable insights for your business ideas</p>
+    </header>
 
-        <!-- Business Idea Form -->
+    <!-- Form Section -->
+    <section class="form-section">
         <form id="chat-form" class="chat-form" action="/result" method="POST">
-            <label for="query">Enter your business idea:</label>
+            <label for="query" class="form-label">Enter your business idea:</label>
             <textarea id="query" name="query" placeholder="e.g., I want to open a school in Chennai..." required></textarea>
             <button type="submit" class="submit-button">Get Analysis</button>
         </form>
-    </div>
+    </section>
 </body>
 </html>

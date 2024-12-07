@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/styles-home.css">
 </head>
-<body style="background-image: url('/static/car.jpg'); background-size: cover; background-position: center;">
+<body>
+
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay loop muted>
+            <source src="../static/Home.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Content Container -->
     <div class="home-container">
-        <h1>Welcome to Business Assistant</h1>
-        <p>Start your business analysis journey today!</p>
-        
-        <div class="button-container">
-            <a href="/login" class="home-button">Login</a>
-            <a href="/signup" class="home-button">Sign Up</a>
+        <div class="glass-effect">
+            <h1>Welcome to Business Assistant</h1>
+            <p>Start your business analysis journey today!</p>
+            <div class="button-container">
+                <a href="/login" class="home-button">Login</a>
+                <a href="/signup" class="home-button">Sign Up</a>
+            </div>
         </div>
     </div>
-</body>
 
+</body>
 </html>

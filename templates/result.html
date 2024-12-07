@@ -4,30 +4,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Analysis Result</title>
-    <link rel="stylesheet" href="../static/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('../static/img/Result.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px 30px;
+            max-width: 800px;
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        /* Result Content */
+        h1, h2, p {
+            margin: 10px 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Button */
+        .submit-button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Navbar Container */
+.navbar {
+    position: fixed; /* Fixed position for always-visible navbar */
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%); /* Center vertically */
+    background: linear-gradient(145deg, #6a11cb, #2575fc);
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    z-index: 10; /* Ensure it stays above other elements */
+}
+
+/* Navbar List */
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Space between items */
+    align-items: center;
+}
+
+/* Navbar List Items */
+.navbar ul li {
+    position: relative;
+}
+
+/* Navbar Links */
+.navbar ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    display: inline-block;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff758c, #ff7eb3);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Hover Effects */
+.navbar ul li a:hover {
+    background: linear-gradient(90deg, #ff4d6d, #ff758c);
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.2);
+}
+
+/* Click Effect */
+.navbar ul li a:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations - Slide In One by One */
+.navbar ul li {
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideIn 0.8s ease forwards;
+}
+
+.navbar ul li:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.navbar ul li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.navbar ul li:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.navbar ul li:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+/* Keyframe Animation */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/index">Home</a></li>
             <li><a href="/about">About</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/home">Logout</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content (Removed result container) -->
-    <div class="full-page">
-        <div class="header">
-            <h1>Business Analysis for: "{{ query }}"</h1>
-        </div>
-
-        <div class="response-box">
-            <h2>Analysis Result:</h2>
+    <!-- Glass Effect Content -->
+    <div class="glass-effect">
+        <header>
+            <h1>Business Analysis for:</h1>
+            <p>"{{ query }}"</p>
+        </header>
+        <section>
+            <h2>Analysis Result</h2>
             <p>{{ response }}</p>
-        </div>
-
-        <a href="/" class="submit-button">Go Back</a>
+        </section>
+        <footer>
+            <a href="/index" class="submit-button">Go Back</a>
+        </footer>
     </div>
 </body>
 </html>
