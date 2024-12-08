@@ -16,63 +16,40 @@ users_collection = db['users']  # Replace 'users' with your actual collection na
 
 
 def get_business_analysis_api(query):
-    url = "https://gpt-4o7.p.rapidapi.com/v1/chat/completions"
+    url = "https://free-chatgpt-api.p.rapidapi.com/chat-completion-one"
 
-    # Define the payload for the API request
-    payload = {
-        "messages": [
-            {
-                "role": "system",
-                "content": "u r a helpful assistant that always output in json."
-            },
-            {
-                "role": "user",
-                "content": query
-            }
-        ],
-        "response_format": {"type": "json_object"},
-        "store": True,
-        "temperature": 1,
-        "max_tokens": 2048,
-        "top_p": 1,
-        "frequency_penalty": 0,
-        "presence_penalty": 0
-    }
+    # Define parameters for the API request
+    params = {"prompt": query}
 
     # Set up headers for the API request
     headers = {
         "x-rapidapi-key": "a7b0734f2amsh73755e653a44facp1ce879jsn6decb4df32a6",
-        "x-rapidapi-host": "gpt-4o7.p.rapidapi.com",
+        "x-rapidapi-host": "free-chatgpt-api.p.rapidapi.com",
         "Content-Type": "application/json"
     }
 
-    # Make the POST request to the API
-    response = requests.post(url, json=payload, headers=headers)
+    # Make the GET request to the API
+    response = requests.get(url, headers=headers, params=params)
 
-    # Check if the response is successful
     if response.status_code == 200:
         try:
-            # Parse the JSON response from the API
             response_data = response.json()
+            content = response_data.get("response", "No valid response.")
 
-            # Extract the response message
-            content = response_data.get("choices", [{}])[0].get("message", {}).get("content", "No valid response.")
-
-            # Split the content into points (assuming each point is on a new line)
+            # Split response into lines for points
             points = content.split("\n")
 
-            # Format the points into a step-by-step list
-            formatted_response = "<ul>"
-            for point in points:
-                if point.strip():  # Skip empty lines
-                    formatted_response += f"<li>{point.strip()}</li>"
-            formatted_response += "</ul>"
-
-            return formatted_response  # Return as HTML list
+            # Wrap each point in an HTML list item
+            formatted_points = "".join(
+                f"<li>{point.strip()}</li>" for point in points if point.strip()
+            )
+            return f"<ul>{formatted_points}</ul>"  # Return as HTML list
         except ValueError:
             return "Error parsing the response from the API."
     else:
         return f"Error {response.status_code}: Unable to fetch data from the API."
+
+
 
 # Route for Home Page
 @app.route('/')
@@ -83,6 +60,7 @@ def home_page():
 def index():
     return render_template('index.html')
 
+
 @app.route('/home')
 def home():
     return render_template('home.html')
@@ -91,6 +69,12 @@ def home():
 @app.route('/about')
 def about_page():
     return render_template('about.html')
+
+@app.route('/features')
+def features_page():
+    return render_template('features.html')
+
+
 
 # Route for Signup Page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -133,20 +117,19 @@ def login():
 
     return render_template('login.html')
 
-# Route for Results Page
 @app.route('/result', methods=['POST', 'GET'])
 def result():
     if request.method == 'POST':
         user_query = request.form.get('query')
         if not user_query:
             return render_template('result.html', response="No query provided.", query="")
-        
+
         result = get_business_analysis_api(user_query)
-        
         return render_template('result.html', response=result, query=user_query)
-    
+
     # If GET request, redirect to home
     return redirect(url_for('home_page'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

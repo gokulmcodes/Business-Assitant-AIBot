@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Business Assistant AI</title>
+    <link rel="stylesheet" href="../static/styles-features.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/index">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/home">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <h1 class="hero-title">Discover Business Assistant AI</h1>
+        <p class="hero-subtitle">Revolutionizing the way businesses innovate, strategize, and grow with advanced AI capabilities.</p>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Features</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <h3>AI-Powered Insights</h3>
+                <p>Leverage data-driven insights that help you make informed decisions. From market trends to competitor analysis, our AI provides you with crucial information to drive success.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Custom Strategies</h3>
+                <p>Create personalized business strategies tailored to your goals, leveraging our AI's ability to analyze strengths, weaknesses, and opportunities in the market.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Effortless Integration</h3>
+                <p>Seamlessly integrate AI tools into your business operations, streamlining workflows, automating tasks, and enabling smarter decision-making processes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <section class="chatbot">
+        <h2 class="section-title">Our Chatbot</h2>
+        <p class="chatbot-description">Our interactive chatbot serves as your personal business consultant, available 24/7 to assist with decision-making, planning, and troubleshooting. Whether you need market analysis or strategic advice, it’s always ready to help.</p>
+        <div class="chatbot-image">
+            <img src="../static/img/chatbot-illustration.jpg" alt="Chatbot Illustration">
+        </div>
+    </section>
+
+    <!-- Marketing Section -->
+    <section class="marketing">
+        <h2 class="section-title">AI in Marketing</h2>
+        <p>Transform your marketing strategies with AI-powered tools designed to optimize campaigns, enhance customer engagement, and maximize ROI. Our platform takes your marketing to the next level.</p>
+        <div class="marketing-highlights">
+            <div class="highlight">
+                <h3>Targeted Campaigns</h3>
+                <p>Reach the right audience with precise AI targeting mechanisms that ensure your marketing budget is spent wisely.</p>
+            </div>
+            <div class="highlight">
+                <h3>Predictive Analytics</h3>
+                <p>Anticipate trends and forecast customer behavior to make proactive decisions and stay ahead of competitors.</p>
+            </div>
+            <div class="highlight">
+                <h3>Dynamic Content</h3>
+                <p>Create real-time, personalized content that adapts to user preferences and behavior, ensuring relevance at every touchpoint.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities">
+        <h2 class="section-title">Capabilities</h2>
+        <p>Our platform is designed to address a wide range of business challenges and enhance performance across various domains:</p>
+        <ul class="capabilities-list">
+            <li>Comprehensive Market Research and Analysis</li>
+            <li>Advanced Financial Forecasting</li>
+            <li>Product and Service Optimization through AI</li>
+            <li>Competitor Analysis and Benchmarking</li>
+            <li>Innovative Business Model Development</li>
+        </ul>
+    </section>
+
+
+    <script>
+        // GSAP Animations
+        gsap.from(".hero-title", { duration: 1, y: -50, opacity: 0, ease: "power3.out" });
+        gsap.from(".hero-subtitle", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
+        gsap.from(".section-title", { duration: 1, x: -100, opacity: 0, stagger: 0.3 });
+        gsap.from(".feature-card, .highlight, .capabilities-list li", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            stagger: 0.2,
+            delay: 0.5
+        });
+        gsap.from(".chatbot-description", { duration: 1, opacity: 0, x: 100, delay: 1, ease: "power3.out" });
+        gsap.from(".chatbot-image img", { duration: 1, scale: 0.5, opacity: 0, delay: 1.5, ease: "power3.out" });
+    </script>
+</body>
+</html>

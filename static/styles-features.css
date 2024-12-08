@@ -1,0 +1,360 @@
+/* General Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;  /* Apply Poppins font to all */
+    color: #333;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navbar Container */
+.navbar {
+    position: fixed; /* Fixed position for always-visible navbar */
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%); /* Center vertically */
+    background: linear-gradient(145deg, #6a11cb, #2575fc);
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    z-index: 10; /* Ensure it stays above other elements */
+}
+
+/* Navbar List */
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Space between items */
+    align-items: center;
+}
+
+/* Navbar List Items */
+.navbar ul li {
+    position: relative;
+}
+
+/* Navbar Links */
+.navbar ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    display: inline-block;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff758c, #ff7eb3);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Hover Effects */
+.navbar ul li a:hover {
+    background: linear-gradient(90deg, #ff4d6d, #ff758c);
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.2);
+}
+
+/* Click Effect */
+.navbar ul li a:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations - Slide In One by One */
+.navbar ul li {
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideIn 0.8s ease forwards;
+}
+
+.navbar ul li:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.navbar ul li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.navbar ul li:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.navbar ul li:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+/* Keyframe Animation */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        top: 10%;
+        right: 10px;
+        transform: none;
+        width: auto;
+        padding: 10px 20px;
+    }
+
+    .navbar ul {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .navbar ul li a {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
+}
+
+
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif; /* Poppins for headings */
+    color: #1e3d58;  /* Darker, more refined blue */
+}
+
+p {
+    color: #555;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Updated gradient colors */
+    color: #fff;
+    border-bottom: 5px solid #fff;
+    animation: fadeIn 2s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.hero-title {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: slideInFromTop 1.5s ease-out forwards; /* No fade out */
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    margin-top: 10px;
+    animation: slideInFromBottom 1.5s ease-out forwards; /* No fade out */
+}
+
+/* Features Section */
+.features {
+    padding: 60px 20px;
+    background: #f5f7fa;
+    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #333;
+    animation: slideInFromLeft 1.5s ease-out forwards; /* No fade out */
+}
+
+.feature-cards {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.feature-card {
+    background: #e3f2fd;  /* Light blue background */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInFromBottom 1s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card h3 {
+    font-size: 1.6rem;
+    color: #1e3d58;  /* Dark blue */
+}
+
+/* Chatbot Section */
+.chatbot {
+    padding: 60px 20px;
+    background: #ffecb3; /* Light yellow */
+    text-align: center;
+    animation: fadeInLeft 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.chatbot-description {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: #555;
+}
+
+.chatbot-image img {
+    width: 350px;
+    margin-top: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.chatbot-image img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Marketing Section */
+.marketing {
+    padding: 60px 20px;
+    background: #f9f9f9; /* Light gray */
+    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.marketing-highlights {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.highlight {
+    background: #e1f5fe; /* Light blue */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    animation: fadeInUp 1s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.highlight:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.highlight h3 {
+    font-size: 1.5rem;
+    color: #1e3d58;
+}
+
+/* Capabilities Section */
+.capabilities {
+    padding: 60px 20px;
+    background: #e8f5e9; /* Soft green */
+    text-align: center;
+    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.capabilities-list {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+    color: #1e3d58;
+    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+}
+
+.capabilities-list li {
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.capabilities-list li:hover {
+    transform: scale(1.05);
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
