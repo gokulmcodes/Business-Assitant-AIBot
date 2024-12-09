@@ -148,23 +148,6 @@ body {
     background: #0056b3;
 }
 
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-    background: linear-gradient(135deg, #007bff, #6a11cb);
-    color: #fff;
-    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    font-size: 1.2rem;
-}
 
 /* About Section */
 .about {
@@ -250,12 +233,85 @@ footer {
     color: #fff;
 }
 
+
+/* Background Video */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Black Glass Effect Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 0;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 100px 20px;
+    color: #fff;
+    z-index: 1;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.hero-description {
+    font-size: 1.5rem;
+}
+
 /* Form Section */
 .form-section {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    animation: fadeInUp 1s ease-in-out;
 }
 
 .chat-form {
@@ -265,6 +321,9 @@ footer {
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
     width: 80%;
     max-width: 500px;
+    animation: fadeInUp 1s ease-in-out;
+    z-index: 1;
+    position: relative;
 }
 
 .chat-form .form-label {
@@ -316,17 +375,6 @@ footer {
 }
 
 /* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -348,6 +396,3 @@ footer {
         font-size: 1rem;
     }
 }
-
-
-

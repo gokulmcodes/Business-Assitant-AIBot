@@ -74,8 +74,6 @@ def about_page():
 def features_page():
     return render_template('features.html')
 
-
-
 # Route for Signup Page
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
