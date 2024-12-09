@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;  /* Apply Poppins font to all */
-    color: #333;
+    color: #f4f0f0;
     background-color: #f9f9f9;
     line-height: 1.6;
     overflow-x: hidden;
@@ -357,4 +357,12 @@ p {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background: #007bff;
+    color: hsl(0, 0%, 100%);
 }

@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_pymongo import PyMongo
+from flask import Flask, request, render_template, jsonify, redirect, url_for, flash
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import bcrypt
 import requests
 from pymongo import MongoClient
@@ -13,6 +15,11 @@ client = MongoClient('mongodb+srv://Team123:Team123@team.jophm.mongodb.net/')  #
 db = client['businessAI']  # Replace with your actual database name
 users_collection = db['users']  # Replace 'users' with your actual collection name
 
+# Replace with your email and SMTP server settings
+SMTP_SERVER = 'smtp.gmail.com'  # For Gmail
+SMTP_PORT = 587  # Use 465 for SSL
+SENDER_EMAIL = 'your_email@gmail.com'
+SENDER_PASSWORD = 'your_email_password'  # Use App Passwords if 2FA is enabled
 
 
 def get_business_analysis_api(query):
@@ -36,20 +43,50 @@ def get_business_analysis_api(query):
             response_data = response.json()
             content = response_data.get("response", "No valid response.")
 
-            # Split response into lines for points
-            points = content.split("\n")
+            # Clean content by removing "###" and "**" symbols
+            content = content.replace("###", "").replace("**", "")
 
-            # Wrap each point in an HTML list item
-            formatted_points = "".join(
-                f"<li>{point.strip()}</li>" for point in points if point.strip()
-            )
-            return f"<ul>{formatted_points}</ul>"  # Return as HTML list
+            # Check if the response is related to business by looking for business-related keywords
+            business_keywords = ["business", "strategy", "market", "startup", "economy", "finance", "investment"]
+            if any(keyword in content.lower() for keyword in business_keywords):
+                # Split response into lines
+                lines = content.split("\n")
+                cleaned_content = "<br>".join([line.strip() for line in lines if line.strip()])
+                return cleaned_content  # Return as plain text with line breaks
+            else:
+                return "Error: This query is not related to business."
         except ValueError:
             return "Error parsing the response from the API."
     else:
         return f"Error {response.status_code}: Unable to fetch data from the API."
 
 
+
+# Email sending function
+def send_email(name, email, message):
+    try:
+        # Set up the MIME message
+        msg = MIMEMultipart()
+        msg['From'] = SENDER_EMAIL
+        msg['To'] = 'receiver_email@example.com'  # Replace with your recipient's email
+        msg['Subject'] = f"Contact Form Submission from {name}"
+
+        # Body of the email
+        body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+        msg.attach(MIMEText(body, 'plain'))
+
+        # Connect to SMTP server and send the email
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()  # Start TLS encryption
+        server.login(SENDER_EMAIL, SENDER_PASSWORD)
+        text = msg.as_string()
+        server.sendmail(SENDER_EMAIL, msg['To'], text)
+        server.quit()
+
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
 
 # Route for Home Page
 @app.route('/')
@@ -59,7 +96,6 @@ def home_page():
 @app.route('/index')
 def index():
     return render_template('index.html')
-
 
 @app.route('/home')
 def home():
@@ -73,6 +109,10 @@ def about_page():
 @app.route('/features')
 def features_page():
     return render_template('features.html')
+
+@app.route('/contact')
+def contact_page():
+    return render_template('contact.html')
 
 # Route for Signup Page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -115,6 +155,22 @@ def login():
 
     return render_template('login.html')
 
+# Route for Contact Form with Email Sending
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+
+        # Send email and check if it was successful
+        if send_email(name, email, message):
+            return jsonify({"status": "success", "message": "Email sent successfully!"})
+        else:
+            return jsonify({"status": "error", "message": "Error sending email."})
+
+    return render_template('contact.html')
+
 @app.route('/result', methods=['POST', 'GET'])
 def result():
     if request.method == 'POST':
@@ -127,7 +183,6 @@ def result():
 
     # If GET request, redirect to home
     return redirect(url_for('home_page'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)

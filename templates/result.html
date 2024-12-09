@@ -141,18 +141,6 @@
             transform: scale(1.15);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
-
-        .result-list {
-        list-style-type: disc; /* Add bullet points */
-        padding-left: 20px; /* Indent the list */
-        text-align: left; /* Align to the left for readability */
-    }
-
-    .result-list li {
-        margin-bottom: 10px; /* Space between points */
-        font-size: 1.2rem; /* Slightly larger font for readability */
-        line-height: 1.6; /* Improve line spacing */
-    }
     </style>
 </head>
 <body>
@@ -175,7 +163,8 @@
         </header>
         <section>
             <h2>Analysis Result</h2>
-            <ul class="result-list">{{ response | safe }}</ul>
+            <!-- Display the result or error message -->
+            <p>{{ response | safe }}</p>
         </section>        
         <footer>
             <a href="/index" class="submit-button">Go Back</a>

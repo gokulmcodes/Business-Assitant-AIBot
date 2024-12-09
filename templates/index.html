@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
-    <video autoplay loop muted id="background-video">
-        <source src="../static/img/Home.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div class="video-container">
+        <video autoplay loop muted id="background-video">
+            <source src="../static/img/Home.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
     
     <!-- Navigation Bar -->
     <nav class="navbar">
@@ -29,6 +32,9 @@
         <h1 class="hero-title">Business Assistant AI</h1>
         <p class="hero-description">Empowering you with actionable insights for your business ideas</p>
     </header>
+
+    <!-- Black Glass Effect Overlay -->
+<div class="overlay"></div>
 
     <!-- Form Section -->
     <section class="form-section">

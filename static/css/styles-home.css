@@ -8,8 +8,8 @@ body, html {
     color: #fff;
 }
 
-/* Background Video */
-.video-background {
+/* Background Image */
+.image-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,12 +18,13 @@ body, html {
     z-index: -1;
 }
 
-.video-background video {
+.image-background img {
     object-fit: cover;
     width: 100%;
     height: 100%;
     opacity: 0.8; /* Adjust opacity for visibility */
 }
+
 
 /* Home Container */
 .home-container {
