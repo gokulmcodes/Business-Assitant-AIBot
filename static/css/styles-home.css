@@ -7,23 +7,30 @@ body, html {
     overflow: hidden;
     color: #fff;
 }
-
-/* Background Image */
-.image-background {
+/* Background Video */
+#background-video {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Black Glass Effect Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: -1;
 }
 
-.image-background img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8; /* Adjust opacity for visibility */
-}
+
+
 
 
 /* Home Container */
@@ -40,11 +47,11 @@ body, html {
 .glass-effect {
     max-width: 800px;
     padding: 40px 60px;
-    background: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+    background: rgba(0, 0, 0, 0.664); /* Semi-transparent black background */
     backdrop-filter: blur(10px); /* Glass effect */
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.745);
     animation: fadeIn 1.2s ease-in-out;
 }
 
@@ -117,3 +124,5 @@ p {
         font-size: 1rem;
     }
 }
+
+

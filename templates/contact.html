@@ -34,75 +34,58 @@
             </div>
         </div>
     </section>
-
     <!-- Section 2: Contact Form & Info -->
     <section class="contact-section">
         <!-- Left Section: Contact Form -->
         <div class="contact-form-container">
             <div class="email-form">
                 <h4>Contact Us</h4>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" name="message" placeholder="Your Message" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                <form id="contactForm" action="/contact" method="POST">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                
+                    <button type="submit">Send Message</button>
                 </form>
             </div>
         </div>
-
+    
         <!-- Popup Message -->
-    <div id="popupMessage" class="popup">
-        <p id="popupText"></p>
-        <button onclick="closePopup()">Close</button>
-    </div>
-
+        <div id="popupMessage" class="popup" style="display: none;">
+            <p id="popupText"></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    
     <script>
-        // AJAX Form Submission
-        $('#contactForm').on('submit', function (e) {
-            e.preventDefault();  // Prevent the form from submitting the traditional way
-
-            var formData = $(this).serialize();  // Serialize form data
-
-            $.ajax({
-                url: '/contact',
-                type: 'POST',
-                data: formData,
-                success: function (response) {
-                    var popup = $('#popupMessage');
-                    var popupText = $('#popupText');
-
-                    // Check if the email was sent successfully
-                    if (response.status === 'success') {
-                        popup.addClass('success').removeClass('error');
-                        popupText.text(response.message);
-                    } else {
-                        popup.addClass('error').removeClass('success');
-                        popupText.text(response.message);
-                    }
-
-                    popup.show();  // Show the popup
-                },
-                error: function () {
-                    var popup = $('#popupMessage');
-                    var popupText = $('#popupText');
-
-                    popup.addClass('error').removeClass('success');
-                    popupText.text('Error sending message. Please try again.');
-
-                    popup.show();  // Show the popup
-                }
-            });
-        });
-
+        // If there is a popup message passed from Flask, show it
+        {% if popup_message %}
+            var status = "{{ popup_status }}";
+            var message = "{{ popup_message }}";
+            var popup = document.getElementById('popupMessage');
+            var popupText = document.getElementById('popupText');
+            
+            // Set the appropriate class based on the status
+            if (status === 'success') {
+                popup.classList.add('success');
+                popup.classList.remove('error');
+            } else {
+                popup.classList.add('error');
+                popup.classList.remove('success');
+            }
+            
+            // Display the message in the popup
+            popupText.textContent = message;
+            popup.style.display = 'block';  // Show the popup
+        {% endif %}
+    
         // Function to close the popup
         function closePopup() {
-            $('#popupMessage').hide();
+            document.getElementById('popupMessage').style.display = 'none';
         }
     </script>
 
@@ -139,33 +122,33 @@
         <h2 class="team-title">Our Team</h2>
         <div class="team-container">
             <div class="team-member">
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>Reg No:</strong> 12345678</p>
-                <p><strong>Department:</strong> Computer Science</p>
+                <p><strong>Name:</strong> GULNAAS BANU.B</p>
+                <p><strong>Reg No:</strong> 34622U18030</p>
+                <p><strong>Department:</strong> Bsc-Computer Science</p>
                 <p><strong>College:</strong> M.M.E.S. Women's Arts and Science College</p>
             </div>
             <div class="team-member">
-                <p><strong>Name:</strong> Jane Smith</p>
-                <p><strong>Reg No:</strong> 12345679</p>
-                <p><strong>Department:</strong> Information Technology</p>
+                <p><strong>Name:</strong> HASEENA.S.R</p>
+                <p><strong>Reg No:</strong> 34622U18032</p>
+                <p><strong>Department:</strong> Bsc-Computer Science</p>
                 <p><strong>College:</strong> M.M.E.S. Women's Arts and Science College</p>
             </div>
             <div class="team-member">
-                <p><strong>Name:</strong> Emma Johnson</p>
-                <p><strong>Reg No:</strong> 12345680</p>
-                <p><strong>Department:</strong> Electronics</p>
+                <p><strong>Name:</strong> KESAVARTHINI.L.G</p>
+                <p><strong>Reg No:</strong> 34622U18035</p>
+                <p><strong>Department:</strong> Bsc-Computer Science</p>
                 <p><strong>College:</strong> M.M.E.S. Women's Arts and Science College</p>
             </div>
             <div class="team-member">
-                <p><strong>Name:</strong> Liam Brown</p>
-                <p><strong>Reg No:</strong> 12345681</p>
-                <p><strong>Department:</strong> Mechanical</p>
+                <p><strong>Name:</strong> LAVANYA.D</p>
+                <p><strong>Reg No:</strong> 34622U18037</p>
+                <p><strong>Department:</strong> Bsc-Computer Science</p>
                 <p><strong>College:</strong> M.M.E.S. Women's Arts and Science College</p>
             </div>
             <div class="team-member">
-                <p><strong>Name:</strong> Olivia Davis</p>
-                <p><strong>Reg No:</strong> 12345682</p>
-                <p><strong>Department:</strong> Civil Engineering</p>
+                <p><strong>Name:</strong> MOUNICA.S</p>
+                <p><strong>Reg No:</strong> 34622U18048</p>
+                <p><strong>Department:</strong> Bsc-Computer Science</p>
                 <p><strong>College:</strong> M.M.E.S. Women's Arts and Science College</p>
             </div>
         </div>

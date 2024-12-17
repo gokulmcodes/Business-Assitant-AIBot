@@ -18,9 +18,8 @@ users_collection = db['users']  # Replace 'users' with your actual collection na
 # Replace with your email and SMTP server settings
 SMTP_SERVER = 'smtp.gmail.com'  # For Gmail
 SMTP_PORT = 587  # Use 465 for SSL
-SENDER_EMAIL = 'your_email@gmail.com'
-SENDER_PASSWORD = 'your_email_password'  # Use App Passwords if 2FA is enabled
-
+SENDER_EMAIL = 'mounicababe@gmail.com'
+SENDER_PASSWORD = 'ervz jofn inod pamu'  # Use App Passwords if 2FA is enabled
 
 def get_business_analysis_api(query):
     url = "https://free-chatgpt-api.p.rapidapi.com/chat-completion-one"
@@ -68,7 +67,7 @@ def send_email(name, email, message):
         # Set up the MIME message
         msg = MIMEMultipart()
         msg['From'] = SENDER_EMAIL
-        msg['To'] = 'receiver_email@example.com'  # Replace with your recipient's email
+        msg['To'] = 'mounicababe@gmail.com'  # Replace with your recipient's email
         msg['Subject'] = f"Contact Form Submission from {name}"
 
         # Body of the email
@@ -158,6 +157,9 @@ def login():
 # Route for Contact Form with Email Sending
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    popup_message = None
+    popup_status = None
+
     if request.method == 'POST':
         name = request.form['name']
         email = request.form['email']
@@ -165,11 +167,13 @@ def contact():
 
         # Send email and check if it was successful
         if send_email(name, email, message):
-            return jsonify({"status": "success", "message": "Email sent successfully!"})
+            popup_message = "Email sent successfully!"
+            popup_status = "success"
         else:
-            return jsonify({"status": "error", "message": "Error sending email."})
+            popup_message = "Error sending email."
+            popup_status = "error"
 
-    return render_template('contact.html')
+    return render_template('contact.html', popup_message=popup_message, popup_status=popup_status)
 
 @app.route('/result', methods=['POST', 'GET'])
 def result():

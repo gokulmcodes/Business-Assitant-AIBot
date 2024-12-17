@@ -1,0 +1,212 @@
+
+/* General Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f9fc;
+    color: #007bff;
+    line-height: 1.6;
+    justify-items: center;
+}
+/* Navbar Container */
+.navbar {
+    position: fixed; /* Fixed position for always-visible navbar */
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%); /* Center vertically */
+    background: linear-gradient(145deg, #6a11cb, #2575fc);
+    padding: 15px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    z-index: 10; /* Ensure it stays above other elements */
+}
+
+/* Navbar List */
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Space between items */
+    align-items: center;
+}
+
+/* Navbar List Items */
+.navbar ul li {
+    position: relative;
+}
+
+/* Navbar Links */
+.navbar ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    display: inline-block;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff758c, #ff7eb3);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Hover Effects */
+.navbar ul li a:hover {
+    background: linear-gradient(90deg, #ff4d6d, #ff758c);
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.2);
+}
+
+/* Click Effect */
+.navbar ul li a:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations - Slide In One by One */
+.navbar ul li {
+    opacity: 0;
+    transform: translateX(60px);
+    animation: slideIn 0.8s ease forwards;
+}
+
+.navbar ul li:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.navbar ul li:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.navbar ul li:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.navbar ul li:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+/* Keyframe Animation */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        top: 10%;
+        right: 10px;
+        transform: none;
+        width: auto;
+        padding: 10px 20px;
+    }
+
+    .navbar ul {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .navbar ul li a {
+        padding: 8px 20px;
+        font-size: 1rem;
+    }
+}
+
+
+
+/* About Section */
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 60px 20px;
+    background-image: url('../img/about.png'); /* Path to your local image */
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center; /* Centers the background image */
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.about-content {
+    max-width: 50%;
+    color: black;
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    color: #6a9ef1;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ffffff;
+}
+
+.about-image img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Features Section */
+.features {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f7f9fc;
+}
+
+.features h2 {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+.feature-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background: #007bff;
+    color: #fff;
+    width: 100%;
+}
