@@ -1,33 +1,29 @@
-/* Navbar Container */
 .navbar {
-    position: fixed; /* Fixed position for always-visible navbar */
+    position: fixed;
     top: 50%;
     right: 20px;
-    transform: translateY(-50%); /* Center vertically */
+    transform: translateY(-50%);
     background: linear-gradient(145deg, #6a11cb, #2575fc);
     padding: 15px 25px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    z-index: 10; /* Ensure it stays above other elements */
+    z-index: 10;
 }
 
-/* Navbar List */
 .navbar ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 20px; /* Space between items */
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
 }
 
-/* Navbar List Items */
 .navbar ul li {
     position: relative;
 }
 
-/* Navbar Links */
 .navbar ul li a {
     text-decoration: none;
     color: #ffffff;
@@ -42,7 +38,6 @@
     text-align: center;
 }
 
-/* Hover Effects */
 .navbar ul li a:hover {
     background: linear-gradient(90deg, #ff4d6d, #ff758c);
     transform: scale(1.15);
@@ -50,13 +45,11 @@
     filter: brightness(1.2);
 }
 
-/* Click Effect */
 .navbar ul li a:active {
     transform: scale(0.95);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Animations - Slide In One by One */
 .navbar ul li {
     opacity: 0;
     transform: translateX(60px);
@@ -79,7 +72,6 @@
     animation-delay: 0.8s;
 }
 
-/* Keyframe Animation */
 @keyframes slideIn {
     to {
         opacity: 1;
@@ -87,7 +79,6 @@
     }
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .navbar {
         top: 10%;
@@ -98,7 +89,7 @@
     }
 
     .navbar ul {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;
     }
 
     .navbar ul li a {
@@ -107,7 +98,6 @@
     }
 }
 
-/* Background Image */
 .image-background {
     position: fixed;
     top: 0;
@@ -121,11 +111,9 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
-    opacity: 10; /* Adjust opacity for visibility */
+    opacity: 10;
 }
 
-
-/* Home Container */
 .home-container {
     display: flex;
     justify-content: center;
@@ -135,19 +123,17 @@
     z-index: 1;
 }
 
-/* Glass Effect */
 .glass-effect {
     max-width: 800px;
     padding: 40px 60px;
-    background: rgba(0, 0, 0, 0.664); /* Semi-transparent black background */
-    backdrop-filter: blur(10px); /* Glass effect */
+    background: rgba(0, 0, 0, 0.664);
+    backdrop-filter: blur(10px);
     border-radius: 15px;
     text-align: center;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.745);
     animation: fadeIn 1.2s ease-in-out;
 }
 
-/* Heading */
 h1 {
     font-size: 3rem;
     font-weight: 700;
@@ -155,7 +141,6 @@ h1 {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* Paragraph */
 p {
     font-size: 1.4rem;
     margin-top: 10px;
@@ -164,7 +149,6 @@ p {
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Buttons */
 .home-button {
     display: inline-block;
     padding: 15px 30px;
@@ -189,7 +173,6 @@ p {
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -201,7 +184,6 @@ p {
     }
 }
 
-/* Media Queries for responsiveness */
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
@@ -217,119 +199,6 @@ p {
     }
 }
 
-
-
-
-/* Navbar Container */
-.navbar {
-    position: fixed; /* Fixed position for always-visible navbar */
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%); /* Center vertically */
-    background: linear-gradient(145deg, #6a11cb, #2575fc);
-    padding: 15px 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    z-index: 10; /* Ensure it stays above other elements */
-}
-
-/* Navbar List */
-.navbar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 20px; /* Space between items */
-    align-items: center;
-}
-
-/* Navbar List Items */
-.navbar ul li {
-    position: relative;
-}
-
-/* Navbar Links */
-.navbar ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 10px 25px;
-    display: inline-block;
-    border-radius: 12px;
-    background: linear-gradient(90deg, #ff758c, #ff7eb3);
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-/* Hover Effects */
-.navbar ul li a:hover {
-    background: linear-gradient(90deg, #ff4d6d, #ff758c);
-    transform: scale(1.15);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    filter: brightness(1.2);
-}
-
-/* Click Effect */
-.navbar ul li a:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Animations - Slide In One by One */
-.navbar ul li {
-    opacity: 0;
-    transform: translateX(60px);
-    animation: slideIn 0.8s ease forwards;
-}
-
-.navbar ul li:nth-child(1) {
-    animation-delay: 0.2s;
-}
-
-.navbar ul li:nth-child(2) {
-    animation-delay: 0.4s;
-}
-
-.navbar ul li:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-.navbar ul li:nth-child(4) {
-    animation-delay: 0.8s;
-}
-
-/* Keyframe Animation */
-@keyframes slideIn {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    .navbar {
-        top: 10%;
-        right: 10px;
-        transform: none;
-        width: auto;
-        padding: 10px 20px;
-    }
-
-    .navbar ul {
-        flex-direction: column; /* Stack items vertically */
-    }
-
-    .navbar ul li a {
-        padding: 8px 20px;
-        font-size: 1rem;
-    }
-}
-
-/* Hero Section */
 .hero-section {
     text-align: center;
     padding: 30px 20px;
@@ -347,7 +216,6 @@ p {
     font-size: 1.5rem;
 }
 
-/* Form Section */
 .form-section {
     display: flex;
     justify-content: center;
@@ -414,7 +282,6 @@ p {
     transform: scale(1.05);
 }
 
-/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -426,7 +293,6 @@ p {
     }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;

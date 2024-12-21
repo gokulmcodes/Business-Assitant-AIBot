@@ -1,44 +1,39 @@
-/* General Styling */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;  /* Apply Poppins font to all */
+    font-family: 'Poppins', sans-serif;
     color: #f4f0f0;
     background-color: #f9f9f9;
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Navbar Container */
 .navbar {
-    position: fixed; /* Fixed position for always-visible navbar */
+    position: fixed;
     top: 50%;
     right: 20px;
-    transform: translateY(-50%); /* Center vertically */
+    transform: translateY(-50%);
     background: linear-gradient(145deg, #6a11cb, #2575fc);
     padding: 15px 25px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    z-index: 10; /* Ensure it stays above other elements */
+    z-index: 10;
 }
 
-/* Navbar List */
 .navbar ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 20px; /* Space between items */
+    flex-direction: column;
+    gap: 20px;
     align-items: center;
 }
 
-/* Navbar List Items */
 .navbar ul li {
     position: relative;
 }
 
-/* Navbar Links */
 .navbar ul li a {
     text-decoration: none;
     color: #ffffff;
@@ -53,7 +48,6 @@ body {
     text-align: center;
 }
 
-/* Hover Effects */
 .navbar ul li a:hover {
     background: linear-gradient(90deg, #ff4d6d, #ff758c);
     transform: scale(1.15);
@@ -61,13 +55,11 @@ body {
     filter: brightness(1.2);
 }
 
-/* Click Effect */
 .navbar ul li a:active {
     transform: scale(0.95);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Animations - Slide In One by One */
 .navbar ul li {
     opacity: 0;
     transform: translateX(60px);
@@ -90,7 +82,6 @@ body {
     animation-delay: 0.8s;
 }
 
-/* Keyframe Animation */
 @keyframes slideIn {
     to {
         opacity: 1;
@@ -98,7 +89,6 @@ body {
     }
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .navbar {
         top: 10%;
@@ -109,7 +99,7 @@ body {
     }
 
     .navbar ul {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;
     }
 
     .navbar ul li a {
@@ -118,24 +108,22 @@ body {
     }
 }
 
-
 h1, h2, h3 {
-    font-family: 'Poppins', sans-serif; /* Poppins for headings */
-    color: #1e3d58;  /* Darker, more refined blue */
+    font-family: 'Poppins', sans-serif;
+    color: #1e3d58;
 }
 
 p {
     color: #555;
 }
 
-/* Hero Section */
 .hero-section {
     text-align: center;
     padding: 100px 20px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Updated gradient colors */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: #fff;
     border-bottom: 5px solid #fff;
-    animation: fadeIn 2s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeIn 2s ease-out forwards;
 }
 
 .hero-title {
@@ -143,20 +131,19 @@ p {
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    animation: slideInFromTop 1.5s ease-out forwards; /* No fade out */
+    animation: slideInFromTop 1.5s ease-out forwards;
 }
 
 .hero-subtitle {
     font-size: 1.4rem;
     margin-top: 10px;
-    animation: slideInFromBottom 1.5s ease-out forwards; /* No fade out */
+    animation: slideInFromBottom 1.5s ease-out forwards;
 }
 
-/* Features Section */
 .features {
     padding: 60px 20px;
     background: #f5f7fa;
-    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInUp 1.5s ease-out forwards;
 }
 
 .section-title {
@@ -164,7 +151,7 @@ p {
     margin-bottom: 40px;
     font-size: 2.5rem;
     color: #333;
-    animation: slideInFromLeft 1.5s ease-out forwards; /* No fade out */
+    animation: slideInFromLeft 1.5s ease-out forwards;
 }
 
 .feature-cards {
@@ -172,18 +159,18 @@ p {
     gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
-    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInUp 1.5s ease-out forwards;
 }
 
 .feature-card {
-    background: #e3f2fd;  /* Light blue background */
+    background: #e3f2fd;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     padding: 30px;
     width: 300px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeInFromBottom 1s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInFromBottom 1s ease-out forwards;
 }
 
 .feature-card:hover {
@@ -193,15 +180,14 @@ p {
 
 .feature-card h3 {
     font-size: 1.6rem;
-    color: #1e3d58;  /* Dark blue */
+    color: #1e3d58;
 }
 
-/* Chatbot Section */
 .chatbot {
     padding: 60px 20px;
-    background: #ffecb3; /* Light yellow */
+    background: #ffecb3;
     text-align: center;
-    animation: fadeInLeft 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInLeft 1.5s ease-out forwards;
 }
 
 .chatbot-description {
@@ -222,11 +208,10 @@ p {
     filter: brightness(1.1);
 }
 
-/* Marketing Section */
 .marketing {
     padding: 60px 20px;
-    background: #f9f9f9; /* Light gray */
-    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+    background: #f9f9f9;
+    animation: fadeInUp 1.5s ease-out forwards;
 }
 
 .marketing-highlights {
@@ -237,14 +222,14 @@ p {
 }
 
 .highlight {
-    background: #e1f5fe; /* Light blue */
+    background: #e1f5fe;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     padding: 30px;
     width: 300px;
     text-align: center;
     transition: transform 0.3s ease;
-    animation: fadeInUp 1s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInUp 1s ease-out forwards;
 }
 
 .highlight:hover {
@@ -257,12 +242,11 @@ p {
     color: #1e3d58;
 }
 
-/* Capabilities Section */
 .capabilities {
     padding: 60px 20px;
-    background: #e8f5e9; /* Soft green */
+    background: #e8f5e9;
     text-align: center;
-    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInUp 1.5s ease-out forwards;
 }
 
 .capabilities-list {
@@ -270,7 +254,7 @@ p {
     padding: 0;
     font-size: 1.1rem;
     color: #1e3d58;
-    animation: fadeInUp 1.5s ease-out forwards; /* 'forwards' ensures it stays visible */
+    animation: fadeInUp 1.5s ease-out forwards;
 }
 
 .capabilities-list li {
@@ -282,8 +266,6 @@ p {
     transform: scale(1.05);
 }
 
-
-/* Animations */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -359,7 +341,6 @@ p {
     }
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 20px 0;
