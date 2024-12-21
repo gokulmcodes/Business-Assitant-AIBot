@@ -181,12 +181,13 @@ def result():
         user_query = request.form.get('query')
         if not user_query:
             return render_template('result.html', response="No query provided.", query="")
-
+        
         result = get_business_analysis_api(user_query)
         return render_template('result.html', response=result, query=user_query)
 
-    # If GET request, redirect to home
-    return redirect(url_for('home_page'))
+    # If GET request, show a placeholder or redirect
+    return render_template('result.html', response="Reloading the page...", query="")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
