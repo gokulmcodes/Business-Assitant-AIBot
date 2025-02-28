@@ -1,3 +1,5 @@
+
+/* General Styling */
 body {
     margin: 0;
     padding: 0;
@@ -7,33 +9,36 @@ body {
     line-height: 1.6;
     justify-items: center;
 }
-
+/* Navbar Container */
 .navbar {
-    position: fixed;
+    position: fixed; /* Fixed position for always-visible navbar */
     top: 50%;
     right: 20px;
-    transform: translateY(-50%);
+    transform: translateY(-50%); /* Center vertically */
     background: linear-gradient(145deg, #6a11cb, #2575fc);
     padding: 15px 25px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    z-index: 10;
+    z-index: 10; /* Ensure it stays above other elements */
 }
 
+/* Navbar List */
 .navbar ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Space between items */
     align-items: center;
 }
 
+/* Navbar List Items */
 .navbar ul li {
     position: relative;
 }
 
+/* Navbar Links */
 .navbar ul li a {
     text-decoration: none;
     color: #ffffff;
@@ -48,6 +53,7 @@ body {
     text-align: center;
 }
 
+/* Hover Effects */
 .navbar ul li a:hover {
     background: linear-gradient(90deg, #ff4d6d, #ff758c);
     transform: scale(1.15);
@@ -55,11 +61,13 @@ body {
     filter: brightness(1.2);
 }
 
+/* Click Effect */
 .navbar ul li a:active {
     transform: scale(0.95);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Animations - Slide In One by One */
 .navbar ul li {
     opacity: 0;
     transform: translateX(60px);
@@ -82,6 +90,7 @@ body {
     animation-delay: 0.8s;
 }
 
+/* Keyframe Animation */
 @keyframes slideIn {
     to {
         opacity: 1;
@@ -89,6 +98,7 @@ body {
     }
 }
 
+/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .navbar {
         top: 10%;
@@ -99,7 +109,7 @@ body {
     }
 
     .navbar ul {
-        flex-direction: column;
+        flex-direction: column; /* Stack items vertically */
     }
 
     .navbar ul li a {
@@ -108,16 +118,20 @@ body {
     }
 }
 
+
+
+/* About Section */
 .about {
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding: 60px 20px;
-    background-image: url('../img/about.png');
-    background-size: cover;
-    background-position: center;
+    background-image: url('../img/about.png'); /* Path to your local image */
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center; /* Centers the background image */
     box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05);
 }
+
 
 .about-content {
     max-width: 50%;
@@ -142,6 +156,8 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+
+/* Features Section */
 .features {
     text-align: center;
     padding: 60px 20px;
@@ -186,6 +202,7 @@ body {
     color: #555;
 }
 
+/* Footer */
 footer {
     text-align: center;
     padding: 20px 0;

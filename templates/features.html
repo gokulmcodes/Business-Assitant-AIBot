@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
             <li><a href="/index">Home</a></li>
@@ -18,11 +19,13 @@
         </ul>
     </nav>
     
+    <!-- Hero Section -->
     <header class="hero-section">
         <h1 class="hero-title">Discover Business Assistant AI</h1>
         <p class="hero-subtitle">Revolutionizing the way businesses innovate, strategize, and grow with advanced AI capabilities.</p>
     </header>
 
+    <!-- Features Section -->
     <section class="features">
         <h2 class="section-title">Features</h2>
         <div class="feature-cards">
@@ -41,6 +44,7 @@
         </div>
     </section>
 
+    <!-- Chatbot Section -->
     <section class="chatbot">
         <h2 class="section-title">Our Chatbot</h2>
         <p class="chatbot-description">Our interactive chatbot serves as your personal business consultant, available 24/7 to assist with decision-making, planning, and troubleshooting. Whether you need market analysis or strategic advice, it’s always ready to help.</p>
@@ -49,6 +53,7 @@
         </div>
     </section>
 
+    <!-- Marketing Section -->
     <section class="marketing">
         <h2 class="section-title">AI in Marketing</h2>
         <p>Transform your marketing strategies with AI-powered tools designed to optimize campaigns, enhance customer engagement, and maximize ROI. Our platform takes your marketing to the next level.</p>
@@ -68,6 +73,7 @@
         </div>
     </section>
 
+    <!-- Capabilities Section -->
     <section class="capabilities">
         <h2 class="section-title">Capabilities</h2>
         <p>Our platform is designed to address a wide range of business challenges and enhance performance across various domains:</p>
@@ -79,12 +85,14 @@
             <li>Innovative Business Model Development</li>
         </ul>
     </section>
-
+    <!-- Footer -->
     <footer>
         <p>© 2024 Business Assistant AI. All Rights Reserved.</p>
     </footer>
 
+
     <script>
+        // GSAP Animations
         gsap.from(".hero-title", { duration: 1, y: -50, opacity: 0, ease: "power3.out" });
         gsap.from(".hero-subtitle", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
         gsap.from(".section-title", { duration: 1, x: -100, opacity: 0, stagger: 0.3 });

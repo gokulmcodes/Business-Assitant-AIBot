@@ -9,10 +9,14 @@
     <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
-    <div class="image-background">
-        <img src="../static/img/index.jpg" alt="Background Image">
-    </div>
-
+     <!-- Background Image -->
+<div class="image-background">
+    <img src="../static/img/index.jpg" alt="Background Image">
+</div>
+    
+    
+    
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
             <li><a href="/index">Home</a></li>
@@ -23,17 +27,21 @@
         </ul>
     </nav>
 
+    <!-- Header Section -->
     <header class="hero-section">
         <h1 class="hero-title">Business Assistant AI</h1>
         <p class="hero-description">Empowering you with actionable insights for your business ideas</p>
     </header>
 
-    <div class="overlay"></div>
+    <!-- Black Glass Effect Overlay -->
+<div class="overlay"></div>
 
+    <!-- Form Section -->
     <section class="form-section">
         <form id="chat-form" class="chat-form" action="/result" method="POST">
             <label for="query" class="form-label">Enter your business idea:</label>
-            <textarea id="query" name="query" placeholder="e.g., I want to open a school in Chennai..." required></textarea>
+            <textarea id="query" name="query" required></textarea>
+            <p class="example-text" style="color: white; margin-top: 5px;">e.g., I want to open a school in Chennai...</p>
             <button type="submit" class="submit-button">Get Analysis</button>
         </form>
     </section>

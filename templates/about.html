@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
             <li><a href="/index">Home</a></li>
@@ -18,11 +19,13 @@
         </ul>
     </nav>
 
+    <!-- Hero Section -->
     <header class="hero">
         <h1 data-aos="fade-up">Welcome to Business Assistant AI</h1>
         <p data-aos="fade-up" data-aos-delay="200">Your ultimate tool for innovative business analysis and growth strategies. Transforming ideas into actionable insights.</p>
     </header>
 
+    <!-- About Section -->
     <section class="about">
         <div class="about-content" data-aos="fade-right">
             <h2>What is Business Assistant AI?</h2>
@@ -33,6 +36,7 @@
         </div>
     </section>
 
+    <!-- Features Section -->
     <section class="features">
         <h2 data-aos="fade-up">Key Features</h2>
         <div class="feature-cards">
@@ -51,13 +55,16 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <p>© 2024 Business Assistant AI. All Rights Reserved.</p>
     </footer>
 
+    <!-- AOS Library -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init();
+        // Hide loader when the page is loaded
         window.addEventListener("load", function() {
             document.getElementById("loader").style.display = "none";
         });
