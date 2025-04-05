@@ -22,48 +22,50 @@ SENDER_EMAIL = 'mounicababe@gmail.com'
 SENDER_PASSWORD = 'ervz jofn inod pamu'  # Use App Passwords if 2FA is enabled
 
 def get_business_analysis_api(query, location=None):
-    url = "https://free-chatgpt-api.p.rapidapi.com/chat-completion-one"
+    url = "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions"
 
-    # Modify the prompt to include location if provided
+    # Prepare the full message based on location
     if location:
-        modified_query = f"Analyze this business idea specifically for {location}, Tamil Nadu: {query}"
+        user_prompt = f"Analyze this business idea for {location}, Tamil Nadu: {query}"
     else:
-        modified_query = query
+        user_prompt = query
 
-    # Define parameters for the API request
-    params = {"prompt": modified_query}
+    # Payload format for GPT-4o
+    payload = {
+        "messages": [
+            {"role": "user", "content": user_prompt}
+        ],
+        "model": "gpt-4o",
+        "max_tokens": 500,
+        "temperature": 0.8
+    }
 
-    # Set up headers for the API request
     headers = {
         "x-rapidapi-key": "a7b0734f2amsh73755e653a44facp1ce879jsn6decb4df32a6",
-        "x-rapidapi-host": "free-chatgpt-api.p.rapidapi.com",
+        "x-rapidapi-host": "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com",
         "Content-Type": "application/json"
     }
 
-    # Make the GET request to the API
-    response = requests.get(url, headers=headers, params=params)
+    try:
+        response = requests.post(url, headers=headers, json=payload)
 
-    if response.status_code == 200:
-        try:
-            response_data = response.json()
-            content = response_data.get("response", "No valid response.")
+        if response.status_code == 200:
+            data = response.json()
+            content = data['choices'][0]['message']['content']
 
-            # Clean content by removing "###" and "**" symbols
+            # Optional cleanup and business keyword filtering
             content = content.replace("###", "").replace("**", "")
-
-            # Check if the response is related to business by looking for business-related keywords
-            business_keywords = ["business", "strategy", "market", "startup", "economy", "finance", "investment"]
+            business_keywords = ["business", "market", "startup", "strategy", "economy", "investment"]
             if any(keyword in content.lower() for keyword in business_keywords):
-                # Split response into lines
                 lines = content.split("\n")
-                cleaned_content = "<br>".join([line.strip() for line in lines if line.strip()])
-                return cleaned_content  # Return as plain text with line breaks
+                return "<br>".join([line.strip() for line in lines if line.strip()])
             else:
                 return "Error: This query is not related to business."
-        except ValueError:
-            return "Error parsing the response from the API."
-    else:
-        return f"Error {response.status_code}: Unable to fetch data from the API."
+        else:
+            return f"API Error {response.status_code}: {response.text}"
+
+    except Exception as e:
+        return f"Exception occurred while calling GPT-4o API: {str(e)}"
 
 
 
