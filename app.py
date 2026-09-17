@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
 # Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')  # Replace with your actual connection string
+client = MongoClient('mongodb+srv://gokul-12345:Gokul1234@cluster0.jophm.mongodb.net/')
 db = client['businessAI']  # Replace with your actual database name
 users_collection = db['users']  # Replace 'users' with your actual collection name
 
