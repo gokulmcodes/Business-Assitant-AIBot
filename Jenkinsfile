@@ -21,13 +21,15 @@ pipeline {
         stage('Setup Python') {
             steps {
                 echo '======================================'
-                echo 'Setting up Python environment'
+                echo 'Setting up Python 3.12 environment'
                 echo '======================================'
 
                 bat '''
                     if exist venv rmdir /s /q venv
 
-                    python -m venv venv
+                    py -3.12 -m venv venv
+
+                    venv\\Scripts\\python.exe --version
 
                     venv\\Scripts\\python.exe -m pip install --upgrade pip
 
