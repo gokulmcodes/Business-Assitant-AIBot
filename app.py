@@ -1,203 +1,675 @@
-from flask import Flask, request, render_template, jsonify, redirect, url_for, flash
+import os
 import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import bcrypt
-import requests
 from pymongo import MongoClient
 
-# Initialize Flask app
+from huggingface_hub import InferenceClient
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+import bcrypt
+import requests
+from flask import (
+    Flask,
+    request,
+    render_template,
+    jsonify,
+    redirect,
+    url_for,
+    flash,
+)
+from pymongo import MongoClient
+
+
+# ============================================================
+# Flask Application
+# ============================================================
+
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
 
-# Connect to MongoDB
-client = MongoClient('mongodb+srv://gokul-12345:Gokul1234@cluster0.jophm.mongodb.net/')
-db = client['businessAI']  # Replace with your actual database name
-users_collection = db['users']  # Replace 'users' with your actual collection name
+# IMPORTANT:
+# Store this value in an environment variable.
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-only-secret-key")
 
-# Replace with your email and SMTP server settings
-SMTP_SERVER = 'smtp.gmail.com'  # For Gmail
-SMTP_PORT = 587  # Use 465 for SSL
-SENDER_EMAIL = 'mounicababe@gmail.com'
-SENDER_PASSWORD = 'ervz jofn inod pamu'  # Use App Passwords if 2FA is enabled
 
-def get_business_analysis_api(query, location=None):
-    url = "https://cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com/v1/chat/completions"
+# ============================================================
+# Environment Variables
+# ============================================================
 
-    # Prepare the full message based on location
-    if location:
-        user_prompt = f"Analyze this business idea for {location}, Tamil Nadu: {query}"
-    else:
-        user_prompt = query
+MONGO_URI = os.environ.get("MONGO_URI")
+HF_TOKEN = os.environ.get("HF_TOKEN")
 
-    # Payload format for GPT-4o
-    payload = {
-        "messages": [
-            {"role": "user", "content": user_prompt}
-        ],
-        "model": "gpt-4o",
-        "max_tokens": 500,
-        "temperature": 0.8
-    }
+SMTP_EMAIL = os.environ.get("SMTP_EMAIL")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
+CONTACT_RECIPIENT_EMAIL = os.environ.get(
+    "CONTACT_RECIPIENT_EMAIL",
+    SMTP_EMAIL
+)
 
-    headers = {
-        "x-rapidapi-key": "a7b0734f2amsh73755e653a44facp1ce879jsn6decb4df32a6",
-        "x-rapidapi-host": "cheapest-gpt-4-turbo-gpt-4-vision-chatgpt-openai-ai-api.p.rapidapi.com",
-        "Content-Type": "application/json"
-    }
 
+# ============================================================
+# MongoDB Configuration
+# ============================================================
+
+client = None
+db = None
+users_collection = None
+
+if not MONGO_URI:
+    print("WARNING: MONGO_URI environment variable is not configured.")
+
+else:
     try:
-        response = requests.post(url, headers=headers, json=payload)
+        client = MongoClient(
+            MONGO_URI,
+            serverSelectionTimeoutMS=5000
+        )
 
-        if response.status_code == 200:
-            data = response.json()
-            content = data['choices'][0]['message']['content']
+        # Force an actual connection to MongoDB
+        client.admin.command("ping")
 
-            # Optional cleanup and business keyword filtering
-            content = content.replace("###", "").replace("**", "")
-            business_keywords = ["business", "market", "startup", "strategy", "economy", "investment"]
-            if any(keyword in content.lower() for keyword in business_keywords):
-                lines = content.split("\n")
-                return "<br>".join([line.strip() for line in lines if line.strip()])
-            else:
-                return "Error: This query is not related to business."
-        else:
-            return f"API Error {response.status_code}: {response.text}"
+        db = client["businessAI"]
+        users_collection = db["users"]
+
+        print("MongoDB connected successfully.")
 
     except Exception as e:
-        return f"Exception occurred while calling GPT-4o API: {str(e)}"
+        print(f"MongoDB connection failed: {e}")
+        users_collection = None
 
 
 
-# Email sending function
-def send_email(name, email, message):
+# ============================================================
+# Health Check
+# ============================================================
+
+@app.route("/health", methods=["GET"])
+def health():
+    """
+    Simple health-check endpoint.
+
+    This endpoint does not connect to MongoDB or RapidAPI.
+    It can be used by Vercel or monitoring services.
+    """
+
+    return jsonify({
+        "status": "ok",
+        "service": "Business Assistant AI Bot"
+    }), 200
+
+
+# ============================================================
+# Business Analysis API
+# ============================================================
+
+def get_business_analysis_api(query, location=None):
+    if not HF_TOKEN:
+        return "Error: HF_TOKEN environment variable is not configured."
+
+    if location:
+        user_prompt = f"""
+Analyze this business idea for {location}, Tamil Nadu.
+
+Business request:
+{query}
+
+Provide a practical business analysis covering:
+
+1. Business opportunity
+2. Target customers
+3. Suitable location strategy
+4. Estimated initial investment
+5. Expected operating costs
+6. Revenue opportunities
+7. Competition
+8. Marketing strategy
+9. Major risks
+10. Final recommendation
+
+Keep the answer practical, realistic and easy to understand.
+"""
+    else:
+        user_prompt = f"""
+Analyze this business idea:
+
+{query}
+
+Provide:
+
+1. Business opportunity
+2. Target customers
+3. Investment
+4. Location strategy
+5. Revenue opportunities
+6. Competition
+7. Marketing strategy
+8. Risks
+9. Final recommendation
+
+Keep the answer practical and easy to understand.
+"""
+
     try:
-        # Set up the MIME message
+        client = InferenceClient(
+            api_key=HF_TOKEN
+        )
+
+        response = client.chat.completions.create(
+            model="meta-llama/Llama-3.1-8B-Instruct",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a practical business analysis "
+                        "assistant."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": user_prompt
+                }
+            ],
+            max_tokens=600,
+            temperature=0.7
+        )
+
+        content = response.choices[0].message.content
+
+        if not content:
+            return "Error: No response received from Hugging Face."
+
+        content = content.replace("###", "")
+        content = content.replace("**", "")
+
+        lines = content.split("\n")
+
+        formatted_content = "<br>".join(
+            line.strip()
+            for line in lines
+            if line.strip()
+        )
+
+        return formatted_content
+
+    except Exception as e:
+        print(f"Hugging Face API error: {e}")
+        return f"AI API Error: {str(e)}"
+
+
+# ============================================================
+# Email Sending Function
+# ============================================================
+
+def send_email(name, email, message):
+    """
+    Send contact-form email using Gmail SMTP.
+    """
+
+    if not SMTP_EMAIL or not SMTP_PASSWORD:
+        print("SMTP credentials are not configured.")
+        return False
+
+    if not CONTACT_RECIPIENT_EMAIL:
+        print("Contact recipient email is not configured.")
+        return False
+
+    try:
+
+        # ----------------------------------------------------
+        # Create MIME email
+        # ----------------------------------------------------
+
         msg = MIMEMultipart()
-        msg['From'] = SENDER_EMAIL
-        msg['To'] = 'mounicababe@gmail.com'  # Replace with your recipient's email
-        msg['Subject'] = f"Contact Form Submission from {name}"
 
-        # Body of the email
-        body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
-        msg.attach(MIMEText(body, 'plain'))
+        msg["From"] = SMTP_EMAIL
+        msg["To"] = CONTACT_RECIPIENT_EMAIL
+        msg["Subject"] = (
+            f"Contact Form Submission from {name}"
+        )
 
-        # Connect to SMTP server and send the email
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()  # Start TLS encryption
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        text = msg.as_string()
-        server.sendmail(SENDER_EMAIL, msg['To'], text)
+        body = (
+            f"Name: {name}\n"
+            f"Email: {email}\n"
+            f"Message: {message}"
+        )
+
+        msg.attach(
+            MIMEText(body, "plain")
+        )
+
+        # ----------------------------------------------------
+        # Connect to Gmail SMTP
+        # ----------------------------------------------------
+
+        server = smtplib.SMTP(
+            "smtp.gmail.com",
+            587,
+            timeout=30
+        )
+
+        server.starttls()
+
+        server.login(
+            SMTP_EMAIL,
+            SMTP_PASSWORD
+        )
+
+        # ----------------------------------------------------
+        # Send email
+        # ----------------------------------------------------
+
+        server.sendmail(
+            SMTP_EMAIL,
+            CONTACT_RECIPIENT_EMAIL,
+            msg.as_string()
+        )
+
         server.quit()
 
         return True
-    except Exception as e:
-        print(f"Error sending email: {e}")
+
+    except smtplib.SMTPException as e:
+
+        print(f"SMTP error while sending email: {e}")
+
         return False
 
-# Route for Home Page
-@app.route('/')
+    except Exception as e:
+
+        print(f"Error sending email: {e}")
+
+        return False
+
+
+# ============================================================
+# Home Page
+# ============================================================
+
+@app.route("/", methods=["GET"])
 def home_page():
-    return render_template('home.html')
+    return render_template("home.html")
 
-@app.route('/index')
+
+# ============================================================
+# Index Page
+# ============================================================
+
+@app.route("/index", methods=["GET"])
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/home')
+
+# ============================================================
+# Home Route
+# ============================================================
+
+@app.route("/home", methods=["GET"])
 def home():
-    return render_template('home.html')
+    return render_template("home.html")
 
-# Route for About Page
-@app.route('/about')
+
+# ============================================================
+# About Page
+# ============================================================
+
+@app.route("/about", methods=["GET"])
 def about_page():
-    return render_template('about.html')
+    return render_template("about.html")
 
-@app.route('/features')
+
+# ============================================================
+# Features Page
+# ============================================================
+
+@app.route("/features", methods=["GET"])
 def features_page():
-    return render_template('features.html')
+    return render_template("features.html")
 
-@app.route('/contact')
-def contact_page():
-    return render_template('contact.html')
 
-# Route for Signup Page
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+# ============================================================
+# Contact Page + Contact Form
+# ============================================================
 
-        # Check if the user already exists
-        if users_collection.find_one({'email': email}):
-            flash('User already exists. Please try logging in.', 'danger')
-            return redirect(url_for('signup'))
-
-        # Hash the password before saving
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-        # Insert the new user into the database
-        users_collection.insert_one({'email': email, 'password': hashed_password.decode('utf-8')})
-        flash('Signup successful! Please log in to continue.', 'success')
-        return redirect(url_for('login'))
-
-    return render_template('signup.html')
-
-# Route for Login Page
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-
-        # Retrieve the user from the database
-        user = users_collection.find_one({'email': email})
-
-        if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            flash('Login successful!', 'success')
-            return redirect(url_for('index'))
-
-        flash('Invalid email or password. Please try again.', 'danger')
-        return redirect(url_for('login'))
-
-    return render_template('login.html')
-
-# Route for Contact Form with Email Sending
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+
     popup_message = None
     popup_status = None
 
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        message = request.form['message']
+    # --------------------------------------------------------
+    # GET request
+    # --------------------------------------------------------
 
-        # Send email and check if it was successful
-        if send_email(name, email, message):
-            popup_message = "Email sent successfully!"
-            popup_status = "success"
-        else:
-            popup_message = "Error sending email."
-            popup_status = "error"
+    if request.method == "GET":
 
-    return render_template('contact.html', popup_message=popup_message, popup_status=popup_status)
+        return render_template(
+            "contact.html",
+            popup_message=popup_message,
+            popup_status=popup_status
+        )
 
-@app.route('/result', methods=['POST', 'GET'])
+    # --------------------------------------------------------
+    # POST request
+    # --------------------------------------------------------
+
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    message = request.form.get("message", "").strip()
+
+    # --------------------------------------------------------
+    # Validate form
+    # --------------------------------------------------------
+
+    if not name or not email or not message:
+
+        popup_message = "Please fill in all fields."
+        popup_status = "error"
+
+        return render_template(
+            "contact.html",
+            popup_message=popup_message,
+            popup_status=popup_status
+        )
+
+    # --------------------------------------------------------
+    # Send email
+    # --------------------------------------------------------
+
+    if send_email(name, email, message):
+
+        popup_message = "Email sent successfully!"
+        popup_status = "success"
+
+    else:
+
+        popup_message = "Error sending email. Please try again."
+        popup_status = "error"
+
+    return render_template(
+        "contact.html",
+        popup_message=popup_message,
+        popup_status=popup_status
+    )
+
+
+# ============================================================
+# Signup
+# ============================================================
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+
+    # --------------------------------------------------------
+    # GET
+    # --------------------------------------------------------
+
+    if request.method == "GET":
+        return render_template("signup.html")
+
+    # --------------------------------------------------------
+    # Check MongoDB configuration
+    # --------------------------------------------------------
+
+    if users_collection is None:
+
+        flash(
+            "Database is currently unavailable.",
+            "danger"
+        )
+
+        return redirect(url_for("signup"))
+
+    # --------------------------------------------------------
+    # Get form values
+    # --------------------------------------------------------
+
+    email = request.form.get("email", "").strip()
+    password = request.form.get("password", "")
+
+    # --------------------------------------------------------
+    # Validate form
+    # --------------------------------------------------------
+
+    if not email or not password:
+
+        flash(
+            "Email and password are required.",
+            "danger"
+        )
+
+        return redirect(url_for("signup"))
+
+    # --------------------------------------------------------
+    # Check existing user
+    # --------------------------------------------------------
+
+    try:
+
+        existing_user = users_collection.find_one({
+            "email": email
+        })
+
+        if existing_user:
+
+            flash(
+                "User already exists. Please try logging in.",
+                "danger"
+            )
+
+            return redirect(url_for("signup"))
+
+        # ----------------------------------------------------
+        # Hash password
+        # ----------------------------------------------------
+
+        hashed_password = bcrypt.hashpw(
+            password.encode("utf-8"),
+            bcrypt.gensalt()
+        )
+
+        # ----------------------------------------------------
+        # Insert user
+        # ----------------------------------------------------
+
+        users_collection.insert_one({
+            "email": email,
+            "password": hashed_password.decode("utf-8")
+        })
+
+        flash(
+            "Signup successful! Please log in to continue.",
+            "success"
+        )
+
+        return redirect(url_for("login"))
+
+    except Exception as e:
+
+        print(f"Signup database error: {e}")
+
+        flash(
+            "An error occurred while creating your account.",
+            "danger"
+        )
+
+        return redirect(url_for("signup"))
+
+
+# ============================================================
+# Login
+# ============================================================
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    # --------------------------------------------------------
+    # GET
+    # --------------------------------------------------------
+
+    if request.method == "GET":
+        return render_template("login.html")
+
+    # --------------------------------------------------------
+    # Check MongoDB
+    # --------------------------------------------------------
+
+    if users_collection is None:
+
+        flash(
+            "Database is currently unavailable.",
+            "danger"
+        )
+
+        return redirect(url_for("login"))
+
+    # --------------------------------------------------------
+    # Get form values
+    # --------------------------------------------------------
+
+    email = request.form.get("email", "").strip()
+    password = request.form.get("password", "")
+
+    # --------------------------------------------------------
+    # Validate
+    # --------------------------------------------------------
+
+    if not email or not password:
+
+        flash(
+            "Email and password are required.",
+            "danger"
+        )
+
+        return redirect(url_for("login"))
+
+    try:
+
+        # ----------------------------------------------------
+        # Find user
+        # ----------------------------------------------------
+
+        user = users_collection.find_one({
+            "email": email
+        })
+
+        # ----------------------------------------------------
+        # Verify password
+        # ----------------------------------------------------
+
+        if user and bcrypt.checkpw(
+            password.encode("utf-8"),
+            user["password"].encode("utf-8")
+        ):
+
+            flash(
+                "Login successful!",
+                "success"
+            )
+
+            return redirect(url_for("index"))
+
+        # ----------------------------------------------------
+        # Invalid credentials
+        # ----------------------------------------------------
+
+        flash(
+            "Invalid email or password. Please try again.",
+            "danger"
+        )
+
+        return redirect(url_for("login"))
+
+    except Exception as e:
+
+        print(f"Login database error: {e}")
+
+        flash(
+            "An error occurred while logging in.",
+            "danger"
+        )
+
+        return redirect(url_for("login"))
+
+
+# ============================================================
+# Business Analysis Result
+# ============================================================
+
+@app.route("/result", methods=["GET", "POST"])
 def result():
-    if request.method == 'POST':
-        user_query = request.form.get('query')
-        location = request.form.get('location')
-        
+
+    # --------------------------------------------------------
+    # POST request
+    # --------------------------------------------------------
+
+    if request.method == "POST":
+
+        user_query = request.form.get(
+            "query",
+            ""
+        ).strip()
+
+        location = request.form.get(
+            "location",
+            ""
+        ).strip()
+
+        # ----------------------------------------------------
+        # Validate query
+        # ----------------------------------------------------
+
         if not user_query:
-            return render_template('result.html', response="No query provided.", query="")
-        
-        result = get_business_analysis_api(user_query, location)
-        return render_template('result.html', response=result, query=user_query)
 
-    # If GET request, show a placeholder or redirect
-    return render_template('result.html', response="Reloading the page...", query="")
+            return render_template(
+                "result.html",
+                response="No query provided.",
+                query=""
+            )
+
+        # ----------------------------------------------------
+        # Call AI API
+        # ----------------------------------------------------
+
+        analysis_result = get_business_analysis_api(
+            user_query,
+            location
+        )
+
+        # ----------------------------------------------------
+        # Render result
+        # ----------------------------------------------------
+
+        return render_template(
+            "result.html",
+            response=analysis_result,
+            query=user_query
+        )
+
+    # --------------------------------------------------------
+    # GET request
+    # --------------------------------------------------------
+
+    return render_template(
+        "result.html",
+        response="Reloading the page...",
+        query=""
+    )
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# ============================================================
+# Application Entry Point
+# ============================================================
+
+if __name__ == "__main__":
+
+    # Local development only.
+    # Vercel will import the `app` object directly.
+
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=True
+    )
